@@ -1,5 +1,7 @@
 package com.pluralsight.asset.manager;
 
+import java.util.ArrayList;
+
 public class Asset {
     private String description;
     private String dateAcquired;
@@ -38,5 +40,15 @@ public class Asset {
     public double getValue(){
         return originalCost;
     }
+    public void addAsset(Asset a, ArrayList<Asset> list){
+        System.out.println("Asset added");
+        list.add(a);
+    }
+
+    @Override
+    public String toString(){
+        return "description: " + getDescription() + " , Date acquired: " + getDateAcquired() + " ,Paid : " + getOriginalCost();
+    }
+
 
 }

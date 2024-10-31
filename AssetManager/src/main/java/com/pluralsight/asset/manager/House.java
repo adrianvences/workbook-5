@@ -52,5 +52,7 @@ public class House extends Asset {
         return 0;
     }
 
+
+
 }
 
