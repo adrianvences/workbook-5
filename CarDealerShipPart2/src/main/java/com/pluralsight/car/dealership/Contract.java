@@ -5,15 +5,23 @@ public abstract class Contract {
     private String customerName;
     private String customerEmail;
     private String vehicleSold;
-    private double totalPrice;
-    private double monthlyPayment;
+    protected double totalPrice;
+    protected double monthlyPayment;
 
-    public Contract(String date, String customerName, String customerEmail, String vehicleSold, double totalPrice, double monthlyPayment) {
+    public Contract(String date, String customerName, String customerEmail, String vehicleSold) {
         this.date = date;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
         this.vehicleSold = vehicleSold;
+        this.totalPrice = 0;
+        this.monthlyPayment = 0;
+    }
+
+    public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public void setMonthlyPayment(double monthlyPayment) {
         this.monthlyPayment = monthlyPayment;
     }
 

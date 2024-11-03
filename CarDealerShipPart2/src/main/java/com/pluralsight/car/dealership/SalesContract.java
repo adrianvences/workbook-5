@@ -9,10 +9,13 @@ public class SalesContract extends Contract{
     private double vehiclePrice;
 
 
-    public SalesContract(String date, String customerName, String customerEmail, String vehicleSold, double totalPrice, double monthlyPayment, double vehiclePrice, boolean financing) {
-        super(date, customerName, customerEmail, vehicleSold, totalPrice, monthlyPayment);
+    public SalesContract(String date, String customerName, String customerEmail, String vehicleSold, double vehiclePrice, boolean financing) {
+        super(date, customerName, customerEmail, vehicleSold);
         this.vehiclePrice = vehiclePrice;
         this.financing = financing;
+
+        super.setTotalPrice(getTotalPrice());
+        super.setMonthlyPayment(getMonthlyPayment());
     }
 
     public double getSalesTaxAmount() {
@@ -84,6 +87,11 @@ public class SalesContract extends Contract{
         double monthlyRate = interestRate / 12; // calculates monthly rate
 
         return (loanAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -months)); // calculates and returns monthly payment
+    }
+    @Override
+    public String toString(){
+        return String.format("SALE | %s | %s | %s | %s | %s | $%.2f | $%.2f | $%.2f | $%.2f",
+                financing ? "YES" : "No",getDate(),getCustomerName(),getCustomerEmail(),getVehicleSold(),vehiclePrice * salesTaxAmount,recordingFee,getTotalPrice(),getMonthlyPayment());
     }
 
 }

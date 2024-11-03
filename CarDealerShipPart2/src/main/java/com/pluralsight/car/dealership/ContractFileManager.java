@@ -40,6 +40,54 @@ public void saveContract(Contract contract) {
 
     }
 
-}
+    public static Contract makeContract(String contractType, Vehicle vehicle){
+        if( contractType.equalsIgnoreCase("saleContract")){
+            String date = UserInterface.promptMethod("Please Enter Date YYYY/MM/dd: ");
+            String customerName = UserInterface.promptMethod("Please Enter Full Name: ");
+            String customerEmail = UserInterface.promptMethod("Please enter email: ");
+            String vehicleSold = vehicle.toString();
+            double vehiclePrice = vehicle.getPrice();
+            boolean financing = isFinancingPrompt();
+            SalesContract newSC = new SalesContract(date,customerName,customerEmail,vehicleSold,vehiclePrice,financing);
+            System.out.println(newSC);
+            return newSC;
+        }
+        else{
+            String date = UserInterface.promptMethod("Please Enter Date YYYY/MM/dd: ");
+            String customerName = UserInterface.promptMethod("Please Enter Full Name: ");
+            String customerEmail = UserInterface.promptMethod("Please enter email: ");
+            String vehicleSold = vehicle.toString();
+            double vehiclePrice = vehicle.getPrice();
+            LeaseContract newLC = new LeaseContract(date,customerName,customerEmail,vehicleSold,vehiclePrice);
+            return newLC;
+        }
+
+    }
+
+    public static boolean isFinancingPrompt(){
+
+        boolean isFinancing = false;
+        boolean validInput = false;
+
+        while(!validInput) {
+            String input = UserInterface.promptMethod("""
+                    Will you be financing?
+                    Type 'Y' for yes or 'N' for no:
+                    """);
+            if (input.equalsIgnoreCase("n")) {
+                validInput = true;
+            } else if (input.equalsIgnoreCase("y")) {
+                isFinancing = true;
+                validInput = true;
+            } else {
+                System.out.println("Please enter a valid option.");
+            }
+        }
+        return isFinancing;
+    }
+
+    }
+
+
 
 

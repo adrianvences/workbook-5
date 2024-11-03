@@ -80,7 +80,7 @@ public class UserInterface {
     }
 
     // Prompt method for dry code
-    private String promptMethod(String prompt){
+    public static String promptMethod(String prompt){
         System.out.println(prompt);
         return scanner.nextLine().trim();
     }
@@ -115,11 +115,16 @@ public class UserInterface {
                     2 ) Lease Vehicle
                     x ) Back to menu
                     """);
+            String contractType;
+            Vehicle vehicle;
             switch (input.toLowerCase()) {
                 case "1":
-                    System.out.println("Sell");
+                    contractType = "saleContract";
+                    vehicle = processGetByVinRequest();
+                    ContractFileManager.makeContract(contractType,vehicle);
                     break;
                 case "2":
+                    contractType = "leaseContract";
                     System.out.println("lease");
                     break;
                 case "x":
@@ -138,6 +143,13 @@ public class UserInterface {
         for (Vehicle v : inventory){
             System.out.println(v);
         }
+    }
+
+    public Vehicle processGetByVinRequest(){
+        int vin = Integer.parseInt(promptMethod("Enter Vehicle vin"));
+        Vehicle vehicle = this.dealership.findVehicleByVin(vin);
+        System.out.println(vehicle);
+        return vehicle;
     }
 
     // Method to get vehicles by price range
