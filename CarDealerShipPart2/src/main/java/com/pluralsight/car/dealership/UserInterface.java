@@ -48,7 +48,7 @@ public class UserInterface {
                  processRemoveVehicleRequest();
                  break;
              case "10":
-                 System.out.println("Sell/Lease a Vehicle");
+                 displaySellLeaseMenu();
                  break;
              case "x":
                  System.out.println("Quit");
@@ -88,6 +88,7 @@ public class UserInterface {
     // dealership display prompt
     private void displayDealershipMenu() {
         System.out.println("""
+                ~ Please enter the number or letter corresponding to your choice:
                 1 ) List all Vehicles
                 2 ) Find Vehicles Within a Price Range
                 3 ) Find Vehicles by make / model
@@ -100,6 +101,36 @@ public class UserInterface {
                 10) Sell/Lease a Vehicle
                 x ) Quit
                 """);
+    }
+
+    private void displaySellLeaseMenu(){
+
+        boolean loopFlag = true;
+
+        while(loopFlag) {
+
+            String input = promptMethod("""
+                    ~ Please enter the number or letter corresponding to your choice:
+                    1 ) Sell Vehicle
+                    2 ) Lease Vehicle
+                    x ) Back to menu
+                    """);
+            switch (input.toLowerCase()) {
+                case "1":
+                    System.out.println("Sell");
+                    break;
+                case "2":
+                    System.out.println("lease");
+                    break;
+                case "x":
+                    System.out.println("Back to home screen ...");
+                    loopFlag = false;
+                    break;
+                default:
+                    System.out.println("invalid input");
+            }
+
+        }
     }
 
     // method to print out inventory array
