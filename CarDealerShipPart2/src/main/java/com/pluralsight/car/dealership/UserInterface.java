@@ -127,7 +127,9 @@ public class UserInterface {
                     break;
                 case "2":
                     contractType = "leaseContract";
-                    System.out.println("lease");
+                    vehicle = processGetByVinRequest();
+                    c = ContractFileManager.makeContract(contractType,vehicle);
+                    ContractFileManager.saveContract(c);
                     break;
                 case "x":
                     System.out.println("Back to home screen ...");

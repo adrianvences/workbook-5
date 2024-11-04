@@ -15,12 +15,29 @@ public static void saveContract(Contract contract) {
         FileWriter fileWriter = new FileWriter(file,true);
         BufferedWriter buffWriter = new BufferedWriter(fileWriter);
         if(contract instanceof SalesContract) {
+            double salesTaxAmount = ((SalesContract) contract).getSalesTaxAmount() * ((SalesContract) contract).getVehiclePrice();
+            double processingFee = ((SalesContract) contract).getVehiclePrice() < 10000 ? 295 : 495;
+            String isFinanced = ((SalesContract) contract).isFinancing() ? "Yes" : "No";
             buffWriter.write("SALE" + "|" +
                     contract.getDate() + "|" +
                     contract.getCustomerName() + "|" +
                     contract.getCustomerEmail() + "|" +
                     contract.getVehicleSold() + "|" +
+                    salesTaxAmount + "|" +
                     ((SalesContract) contract).getRecordingFee() + "|" +
+                    processingFee + "|" +
+                    contract.getTotalPrice() + "|" +
+                    isFinanced + "|" +
+                    contract.getMonthlyPayment());
+        }
+        else if(contract instanceof LeaseContract) {
+            buffWriter.write("LEASE" + "|" +
+                    contract.getDate() + "|" +
+                    contract.getCustomerName() + "|" +
+                    contract.getCustomerEmail() + "|" +
+                    contract.getVehicleSold() + "|" +
+                    ((LeaseContract) contract).getExpectedEndingValue() + "|" +
+                    ((LeaseContract) contract).getLeaseFee() + "|" +
                     contract.getTotalPrice() + "|" +
                     contract.getMonthlyPayment());
         }
