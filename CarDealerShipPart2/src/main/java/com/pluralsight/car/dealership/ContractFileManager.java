@@ -4,8 +4,14 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+
+
+// TO DO
+// remove vehicle from inventory after sale or lease
 
 public class ContractFileManager {
+
 
 public static void saveContract(Contract contract) {
     try {
@@ -28,20 +34,22 @@ public static void saveContract(Contract contract) {
                     processingFee + "|" +
                     contract.getTotalPrice() + "|" +
                     isFinanced + "|" +
-                    contract.getMonthlyPayment());
+                    String.format("$%.2f",contract.getMonthlyPayment()));
         }
         else if(contract instanceof LeaseContract) {
-            buffWriter.write("LEASE" + "|" +
-                    contract.getDate() + "|" +
-                    contract.getCustomerName() + "|" +
-                    contract.getCustomerEmail() + "|" +
-                    contract.getVehicleSold() + "|" +
-                    ((LeaseContract) contract).getExpectedEndingValue() + "|" +
-                    ((LeaseContract) contract).getLeaseFee() + "|" +
-                    contract.getTotalPrice() + "|" +
-                    contract.getMonthlyPayment());
-        }
+
+                buffWriter.write("LEASE" + "|" +
+                        contract.getDate() + "|" +
+                        contract.getCustomerName() + "|" +
+                        contract.getCustomerEmail() + "|" +
+                        contract.getVehicleSold() + "|" +
+                        ((LeaseContract) contract).getExpectedEndingValue() + "|" +
+                        String.format("$%.2f", ((LeaseContract) contract).getLeaseFee()) + "|" +
+                        String.format("$%.2f", contract.getTotalPrice()) + "|" +
+                        String.format("$%.2f", contract.getMonthlyPayment()));
+            }
             buffWriter.newLine();
+
 
             buffWriter.close();
         } catch(IOException e){
@@ -52,13 +60,22 @@ public static void saveContract(Contract contract) {
 
     }
 
+    public static boolean okayToLeaseMethod(int year){
+        LocalDate currentDate = LocalDate.now();
+        int currentYear = currentDate.getYear();
+        int targetYear = currentYear - 3;
+
+        return year >= targetYear;
+
+
+    }
 
     public static Contract makeContract (String contractType, Vehicle vehicle){
         if (contractType.equalsIgnoreCase("saleContract")) {
             String date = UserInterface.promptMethod("Please Enter Date YYYY/MM/dd: ");
             String customerName = UserInterface.promptMethod("Please Enter Full Name: ");
             String customerEmail = UserInterface.promptMethod("Please enter email: ");
-            String vehicleSold = vehicle.toString();
+            Vehicle vehicleSold = vehicle;
             double vehiclePrice = vehicle.getPrice();
             boolean financing = isFinancingPrompt();
             SalesContract newSC = new SalesContract(date, customerName, customerEmail, vehicleSold, vehiclePrice, financing);
@@ -68,7 +85,7 @@ public static void saveContract(Contract contract) {
             String date = UserInterface.promptMethod("Please Enter Date YYYY/MM/dd: ");
             String customerName = UserInterface.promptMethod("Please Enter Full Name: ");
             String customerEmail = UserInterface.promptMethod("Please enter email: ");
-            String vehicleSold = vehicle.toString();
+            Vehicle vehicleSold = vehicle;
             double vehiclePrice = vehicle.getPrice();
             LeaseContract newLC = new LeaseContract(date, customerName, customerEmail, vehicleSold, vehiclePrice);
             return newLC;

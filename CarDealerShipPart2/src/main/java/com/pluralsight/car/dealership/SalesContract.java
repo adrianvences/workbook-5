@@ -9,7 +9,7 @@ public class SalesContract extends Contract{
     private double vehiclePrice;
 
 
-    public SalesContract(String date, String customerName, String customerEmail, String vehicleSold, double vehiclePrice, boolean financing) {
+    public SalesContract(String date, String customerName, String customerEmail, Vehicle vehicleSold, double vehiclePrice, boolean financing) {
         super(date, customerName, customerEmail, vehicleSold);
         this.vehiclePrice = vehiclePrice;
         this.financing = financing;

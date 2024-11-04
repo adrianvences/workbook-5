@@ -115,21 +115,12 @@ public class UserInterface {
                     2 ) Lease Vehicle
                     x ) Back to menu
                     """);
-            String contractType;
-            Vehicle vehicle;
-            Contract c;
             switch (input.toLowerCase()) {
                 case "1":
-                    contractType = "saleContract";
-                    vehicle = processGetByVinRequest();
-                    c = ContractFileManager.makeContract(contractType,vehicle);
-                    ContractFileManager.saveContract(c);
+                    processSellVehicleRequest();
                     break;
                 case "2":
-                    contractType = "leaseContract";
-                    vehicle = processGetByVinRequest();
-                    c = ContractFileManager.makeContract(contractType,vehicle);
-                    ContractFileManager.saveContract(c);
+                    processLeaseVehicleRequest();
                     break;
                 case "x":
                     System.out.println("Back to home screen ...");
@@ -140,6 +131,30 @@ public class UserInterface {
             }
 
         }
+    }
+
+    public void processSellVehicleRequest(){
+        String contractType = "saleContract";
+        Vehicle vehicle = processGetByVinRequest();
+        Contract c = ContractFileManager.makeContract(contractType,vehicle);
+        this.dealership.removeVehicle(vehicle);
+        fileManager.saveDealership(this.dealership);
+        ContractFileManager.saveContract(c);
+
+    }
+
+
+    public void processLeaseVehicleRequest(){
+        String contractType = "leaseContract";
+        Vehicle vehicle = processGetByVinRequest();
+        if(!ContractFileManager.okayToLeaseMethod(vehicle.getYear())){
+            System.out.println("Vehicle is not available for lease.");
+            return;
+        }
+        Contract c = ContractFileManager.makeContract(contractType,vehicle);
+        this.dealership.removeVehicle(vehicle);
+        fileManager.saveDealership(this.dealership);
+        ContractFileManager.saveContract(c);
     }
 
     // method to print out inventory array

@@ -27,9 +27,6 @@ public class Dealership {
     public ArrayList<Vehicle> getAllVehicles(){
         if(inventory.isEmpty()){
             System.out.println("No vehicles available at the moment.");
-        } else {
-            System.out.println("Vehicles available at " + name + ": ");
-
         }
         return inventory;
     }

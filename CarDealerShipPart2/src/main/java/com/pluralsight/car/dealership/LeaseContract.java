@@ -8,7 +8,7 @@ public class LeaseContract extends Contract{
     private double expectedEndingValue;
     private double leaseFee;
 
-    public LeaseContract(String date, String customerName, String customerEmail, String vehicleSold, double originalPrice) {
+    public LeaseContract(String date, String customerName, String customerEmail, Vehicle vehicleSold, double originalPrice) {
         super(date, customerName, customerEmail, vehicleSold);
         this.originalPrice = originalPrice;
         this.expectedEndingValue = originalPrice * .50; // calculates expected ending value
@@ -78,6 +78,12 @@ public class LeaseContract extends Contract{
         // calculates monthly payment using formula
         double monthlyRate = financeRate / 12; // calculates monthly interest Rate
         return (financedAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -leaseMonths));
+    }
+
+    @Override
+    public String toString(){
+        return String.format("LEASE | %s | %s | %s | %s | $%.2f | $%.2f | $%.2f | $%.2f",
+                getDate(),getCustomerName(),getCustomerEmail(),getVehicleSold(),getExpectedEndingValue(),getLeaseFeeRate(),getTotalPrice(),getMonthlyPayment());
     }
 
 }
