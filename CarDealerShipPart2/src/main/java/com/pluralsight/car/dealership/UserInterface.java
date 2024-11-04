@@ -117,11 +117,13 @@ public class UserInterface {
                     """);
             String contractType;
             Vehicle vehicle;
+            Contract c;
             switch (input.toLowerCase()) {
                 case "1":
                     contractType = "saleContract";
                     vehicle = processGetByVinRequest();
-                    ContractFileManager.makeContract(contractType,vehicle);
+                    c = ContractFileManager.makeContract(contractType,vehicle);
+                    ContractFileManager.saveContract(c);
                     break;
                 case "2":
                     contractType = "leaseContract";
