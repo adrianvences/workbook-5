@@ -1,5 +1,5 @@
 package com.pluralsight.car.dealership;
-
+// super class for LeaseContract and SaleContract
 public abstract class Contract {
     private String date;
     private String customerName;

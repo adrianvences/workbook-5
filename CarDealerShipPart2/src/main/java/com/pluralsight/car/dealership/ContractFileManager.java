@@ -12,7 +12,7 @@ import java.time.LocalDate;
 
 public class ContractFileManager {
 
-
+// depending on instance of contract writes different output
 public static void saveContract(Contract contract) {
     try {
         System.out.println(contract);
@@ -60,6 +60,7 @@ public static void saveContract(Contract contract) {
 
     }
 
+    // Method to check if car is older than 3 years
     public static boolean okayToLeaseMethod(int year){
         LocalDate currentDate = LocalDate.now();
         int currentYear = currentDate.getYear();
@@ -69,7 +70,7 @@ public static void saveContract(Contract contract) {
 
 
     }
-
+    // prompts user for info and makes instance of contract depending on if sale or lease
     public static Contract makeContract (String contractType, Vehicle vehicle){
         if (contractType.equalsIgnoreCase("saleContract")) {
             String date = UserInterface.promptMethod("Please Enter Date YYYY/MM/dd: ");
@@ -93,6 +94,7 @@ public static void saveContract(Contract contract) {
 
     }
 
+    // checks if user is financing vehicle
     public static boolean isFinancingPrompt () {
 
         boolean isFinancing = false;
